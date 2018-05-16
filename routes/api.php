@@ -13,6 +13,22 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group([
+    'middleware' => ['api'],
+    'prefix'     => 'auth'
+], function ($router) {
+    // Route::get('redirect/{service}', 'AuthController@redirect');
+    // Route::get('callback', 'AuthController@callback');
+
+    Route::get('{service}/new', 'AuthController@new');
+    Route::get('{service}/add', 'AuthController@add');
+    Route::get('{service}/login', 'AuthController@login');
+
+    Route::get('callback', 'AuthController@callback');
+
+    Route::group(['middleware' => ['jwt.auth']], function () {
+        Route::post('refresh', 'AuthController@refresh');
+        Route::post('logout', 'AuthController@logout');
+        Route::get('me', 'AuthController@me');
+    });
 });
