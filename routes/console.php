@@ -16,3 +16,8 @@ use Illuminate\Foundation\Inspiring;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
+
+Artisan::command('doctrine:schema:reset', function () {
+    $this->call('doctrine:schema:drop', ['--force' => true]);
+    $this->call('doctrine:schema:create');
+});
