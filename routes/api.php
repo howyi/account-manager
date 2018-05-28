@@ -21,12 +21,12 @@ Route::group([
     // Route::get('callback', 'AuthController@callback');
 
     Route::get('{service}/new', 'AuthController@new');
-    Route::get('{service}/add', 'AuthController@add');
     Route::get('{service}/login', 'AuthController@login');
 
     Route::get('callback', 'AuthController@callback');
 
     Route::group(['middleware' => ['jwt.auth']], function () {
+        Route::get('{service}/add', 'AuthController@add');
         Route::post('refresh', 'AuthController@refresh');
         Route::post('logout', 'AuthController@logout');
         Route::get('me', 'AuthController@me');
