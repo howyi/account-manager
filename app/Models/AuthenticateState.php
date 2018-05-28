@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\AuthenticateStateType;
 use Carbon\Carbon;
 use Doctrine\ORM\Mapping as ORM;
 use LaravelDoctrine\Extensions\SoftDeletes\SoftDeletes;
@@ -37,6 +38,13 @@ class AuthenticateState
     /**
      * @var string
      *
+     * @ORM\Column(type="authenticateStateType")
+     */
+    private $stateType;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(nullable=true)
      */
     private $userId;
@@ -48,15 +56,24 @@ class AuthenticateState
     private $user;
 
     /**
+     * @ORM\ManyToOne(targetEntity="AuthenticateService")
+     * @ORM\JoinColumn(name="service_id", referencedColumnName="service_id")
+     */
+    private $service;
+
+    /**
      * AuthenticateState constructor.
      * @param string   $serviceId
+     * @param string   $stateType
      * @param int|null $userId
      */
     public function __construct(
         string $serviceId,
+        string $stateType,
         ?int $userId
     ) {
         $this->serviceId = $serviceId;
+        $this->stateType = $stateType;
         $this->userId = $userId;
     }
 
@@ -70,6 +87,11 @@ class AuthenticateState
         return $this->serviceId;
     }
 
+    public function getStateType(): string
+    {
+        return $this->stateType;
+    }
+
     public function getUserId(): ?string
     {
         return $this->userId;
@@ -80,9 +102,9 @@ class AuthenticateState
         return $this->user;
     }
 
-    public function isRegister(): bool
+    public function isNew(): bool
     {
-        return is_null($this->userId);
+        return AuthenticateStateType::NEW === $this->getStateType();
     }
 
     public function hasExpired(): bool

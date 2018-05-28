@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\AuthenticateStateType;
 use App\Models\AuthenticateState;
 use App\Models\User\Authenticate;
 use App\Models\User\User;
@@ -12,7 +13,9 @@ use Carbon\Carbon;
 use Doctrine\ORM\EntityManager;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Laravel\Socialite\Contracts\User as LinkedAccount;
+use Ramsey\Uuid\Uuid;
 use Tymon\JWTAuth\JWTAuth;
 
 class AuthController extends Controller
@@ -76,7 +79,10 @@ class AuthController extends Controller
             ->getDriver($request, $service)
             ->stateless();
 
-        $state = $this->authenticateStateModifier->create($service);
+        $state = $this->authenticateStateModifier->create(
+            $service,
+            AuthenticateStateType::NEW
+        );
 
         return $driver
             ->with(['state' => $state->getStateId()])
@@ -101,6 +107,7 @@ class AuthController extends Controller
 
         $state = $this->authenticateStateModifier->create(
             $service,
+            AuthenticateStateType::ADD,
             auth()->getUser()
         );
 
@@ -116,34 +123,20 @@ class AuthController extends Controller
      */
     public function login(Request $request, string $service)
     {
-        return $this
+        $driver = $this
             ->authenticateServiceManager
             ->getDriver($request, $service)
-            ->stateless()
+            ->stateless();
+
+        $state = $this->authenticateStateModifier->create(
+            $service,
+            AuthenticateStateType::LOGIN
+        );
+
+        return $driver
+            ->with(['state' => $state->getStateId()])
             ->redirect();
     }
-
-    // /**
-    //  * @param Request $request
-    //  * @param string  $service
-    //  * @return \Symfony\Component\HttpFoundation\RedirectResponse
-    //  */
-    // public function redirect(Request $request, string $service)
-    // {
-    //     $driver = $this
-    //         ->authenticateServiceManager
-    //         ->getDriver($request, $service)
-    //         ->stateless();
-    //
-    //     $state = $this->authenticateStateModifier->create(
-    //         $service,
-    //         auth()->getUser()
-    //     );
-    //
-    //     return $driver
-    //         ->with(['state' => $state->getStateId()])
-    //         ->redirect();
-    // }
 
     /**
      * @param Request $request
@@ -173,7 +166,16 @@ class AuthController extends Controller
             ->stateless()
             ->user();
 
-        if ($state->isRegister()) {
+        // TODO
+        switch ($state->getStateType()) {
+            case AuthenticateStateType::NEW:
+                $user = $this->userModifier->create($linkedAccount, $state);
+            case AuthenticateStateType::ADD:
+                $user = $state->getUser();
+            case AuthenticateStateType::LOGIN:
+        }
+
+        if ($state->isNew()) {
             // 新規登録
 
         } else {

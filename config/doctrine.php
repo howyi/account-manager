@@ -110,6 +110,7 @@ return [
     'custom_types'               => [
         'json' => LaravelDoctrine\ORM\Types\Json::class,
         'authenticateServiceType' => \App\Enums\AuthenticateServiceType::class,
+        'authenticateStateType' => \App\Enums\AuthenticateStateType::class,
     ],
     /*
     |--------------------------------------------------------------------------

@@ -22,13 +22,14 @@ class AuthenticateStateModifier
 
     /**
      * @param string $service
+     * @param string $stateType
      * @param mixed  $user
      * @return AuthenticateState
      */
-    public function create($service, $user = null): AuthenticateState
+    public function create($service, $stateType, $user = null): AuthenticateState
     {
         $userId = is_null($user) ? null : $user->getUserId();
-        $authenticateState = new AuthenticateState($service, $userId);
+        $authenticateState = new AuthenticateState($service, $stateType, $userId);
         $this->em->persist($authenticateState);
         $this->em->flush();
         return $authenticateState;
