@@ -17,9 +17,6 @@ Route::group([
     'middleware' => ['api'],
     'prefix'     => 'auth'
 ], function ($router) {
-    // Route::get('redirect/{service}', 'AuthController@redirect');
-    // Route::get('callback', 'AuthController@callback');
-
     Route::get('{service}/new', 'AuthController@new');
     Route::get('{service}/login', 'AuthController@login');
 
