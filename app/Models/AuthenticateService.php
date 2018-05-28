@@ -18,10 +18,10 @@ class AuthenticateService
     use SoftDeletes;
 
     /**
-     * @var int
+     * @var string
      *
      * @ORM\Id
-     * @ORM\Column(type="integer")
+     * @ORM\Column
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $serviceId;
