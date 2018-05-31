@@ -28,7 +28,7 @@ class AuthenticateServiceManager
      */
     public function findAll(): array
     {
-        return $this
+        return $thisA
             ->em
             ->getRepository(AuthenticateService::class)
             ->findAll();

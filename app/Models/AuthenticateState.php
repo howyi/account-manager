@@ -29,7 +29,7 @@ class AuthenticateState
     private $stateId;
 
     /**
-     * @var int
+     * @var string
      *
      * @ORM\Column
      */
@@ -56,7 +56,7 @@ class AuthenticateState
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AuthenticateService")
+     * @ORM\OneToOne(targetEntity="AuthenticateService")
      * @ORM\JoinColumn(name="service_id", referencedColumnName="service_id")
      */
     private $service;

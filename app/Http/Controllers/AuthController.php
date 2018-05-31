@@ -166,26 +166,33 @@ class AuthController extends Controller
             ->stateless()
             ->user();
 
-        // TODO
+        $authenticate = $this
+            ->em
+            ->getRepository(Authenticate::class)
+            ->findOneBy([
+                'serviceId' => $state->getServiceId(),
+                'token'   => $linkedAccount->getId(),
+            ]);
+
         switch ($state->getStateType()) {
             case AuthenticateStateType::NEW:
-                $user = $this->userModifier->create($linkedAccount, $state);
+                if (!is_null($authenticate)) {
+                    throw new \RuntimeException('This account already authenticated.');
+                }
+                $user = $this->userModifier->create($linkedAccount);
             case AuthenticateStateType::ADD:
+                if (!is_null($authenticate)) {
+                    throw new \RuntimeException('This account already authenticated.');
+                }
                 $user = $state->getUser();
+                $this->authenticateModifier->add($linkedAccount);
             case AuthenticateStateType::LOGIN:
+                if (is_null($authenticate)) {
+                    throw new \RuntimeException('This account not authenticated.');
+                }
+                $user = $this->userQuery->find($linkedAccount);
         }
 
-        if ($state->isNew()) {
-            // 新規登録
-
-        } else {
-            // アカウントの追加
-            $user = $state->getUser();
-        }
-
-        dump($linkedAccount);
-
-        $user = $this->findOrCreateUser($linkedAccount, $service);
         $token = $this->jwt->fromUser($user);
 
         return response()->json([

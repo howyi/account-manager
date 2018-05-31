@@ -64,10 +64,10 @@ class AuthenticateState extends \App\Models\AuthenticateState implements \Doctri
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'stateId', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'serviceId', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'userId', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'user', 'createdAt', 'updatedAt', 'deletedAt'];
+            return ['__isInitialized__', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'stateId', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'serviceId', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'stateType', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'userId', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'user', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'service', 'createdAt', 'updatedAt', 'deletedAt'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'stateId', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'serviceId', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'userId', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'user', 'createdAt', 'updatedAt', 'deletedAt'];
+        return ['__isInitialized__', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'stateId', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'serviceId', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'stateType', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'userId', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'user', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'service', 'createdAt', 'updatedAt', 'deletedAt'];
     }
 
     /**
@@ -202,6 +202,17 @@ class AuthenticateState extends \App\Models\AuthenticateState implements \Doctri
     /**
      * {@inheritDoc}
      */
+    public function getStateType(): string
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStateType', []);
+
+        return parent::getStateType();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getUserId(): ?string
     {
 
@@ -224,12 +235,12 @@ class AuthenticateState extends \App\Models\AuthenticateState implements \Doctri
     /**
      * {@inheritDoc}
      */
-    public function isRegister(): bool
+    public function isNew(): bool
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'isRegister', []);
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'isNew', []);
 
-        return parent::isRegister();
+        return parent::isNew();
     }
 
     /**

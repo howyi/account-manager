@@ -21,10 +21,12 @@ class AuthenticateStateModifier
     }
 
     /**
-     * @param string $service
-     * @param string $stateType
-     * @param mixed  $user
+     * @param      $service
+     * @param      $stateType
+     * @param null $user
      * @return AuthenticateState
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function create($service, $stateType, $user = null): AuthenticateState
     {
