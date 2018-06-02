@@ -152,6 +152,8 @@ class AuthController extends Controller
             ->getRepository(AuthenticateState::class)
             ->find($request->input('state'));
 
+        $serviceId = $state->getServiceId();
+
         if (is_null($state)) {
             throw new \RuntimeException('State not found.');
         }
@@ -162,7 +164,7 @@ class AuthController extends Controller
 
         $linkedAccount = $this
             ->authenticateServiceManager
-            ->getDriver($request, $state->getServiceId())
+            ->getDriver($request, $serviceId)
             ->stateless()
             ->user();
 
@@ -170,7 +172,7 @@ class AuthController extends Controller
             ->em
             ->getRepository(Authenticate::class)
             ->findOneBy([
-                'serviceId' => $state->getServiceId(),
+                'serviceId' => $serviceId,
                 'token'   => $linkedAccount->getId(),
             ]);
 
@@ -179,7 +181,7 @@ class AuthController extends Controller
                 if (!is_null($authenticate)) {
                     throw new \RuntimeException('This account already authenticated.');
                 }
-                $user = $this->userModifier->create($linkedAccount);
+                $user = $this->userModifier->create($linkedAccount, $serviceId);
                 break;
             case AuthenticateStateType::ADD:
                 if (!is_null($authenticate)) {

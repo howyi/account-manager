@@ -2,8 +2,8 @@
 
 namespace App\Modifiers;
 
-use App\Models\User\Authenticate;
-use App\Models\User\User;
+use App\Models\Authenticate;
+use App\Models\User;
 use Doctrine\ORM\EntityManager;
 use Laravel\Socialite\Contracts\User as LinkedAccount;
 
@@ -24,18 +24,18 @@ class UserModifier
 
     /**
      * @param LinkedAccount $linkedAccount
-     * @param string        $service
+     * @param string        $serviceId
      * @return User
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function create(LinkedAccount $linkedAccount, string $service): User
+    public function create(LinkedAccount $linkedAccount, string $serviceId): User
     {
         $user = new User($linkedAccount->getEmail());
         $this->em->persist($user);
         $authenticate = new Authenticate(
             $user,
-            $service,
+            $serviceId,
             $linkedAccount->getId()
         );
         $user->addAuthenticate($authenticate);

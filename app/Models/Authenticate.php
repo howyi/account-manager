@@ -52,12 +52,6 @@ class Authenticate
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AuthenticateService", inversedBy="authenticate")
-     * @ORM\JoinColumn(name="service_id", referencedColumnName="service_id")
-     */
-    private $authenticateService;
-
-    /**
      * @param User   $user
      * @param string $serviceId
      * @param string $token

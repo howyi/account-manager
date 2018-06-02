@@ -64,10 +64,10 @@ class Authenticate extends \App\Models\Authenticate implements \Doctrine\ORM\Pro
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'App\\Models\\Authenticate' . "\0" . 'authenticateId', '' . "\0" . 'App\\Models\\Authenticate' . "\0" . 'userId', '' . "\0" . 'App\\Models\\Authenticate' . "\0" . 'serviceId', '' . "\0" . 'App\\Models\\Authenticate' . "\0" . 'token', '' . "\0" . 'App\\Models\\Authenticate' . "\0" . 'user', '' . "\0" . 'App\\Models\\Authenticate' . "\0" . 'authenticateService', 'createdAt', 'updatedAt'];
+            return ['__isInitialized__', '' . "\0" . 'App\\Models\\Authenticate' . "\0" . 'authenticateId', '' . "\0" . 'App\\Models\\Authenticate' . "\0" . 'userId', '' . "\0" . 'App\\Models\\Authenticate' . "\0" . 'serviceId', '' . "\0" . 'App\\Models\\Authenticate' . "\0" . 'token', '' . "\0" . 'App\\Models\\Authenticate' . "\0" . 'user', 'createdAt', 'updatedAt'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'App\\Models\\Authenticate' . "\0" . 'authenticateId', '' . "\0" . 'App\\Models\\Authenticate' . "\0" . 'userId', '' . "\0" . 'App\\Models\\Authenticate' . "\0" . 'serviceId', '' . "\0" . 'App\\Models\\Authenticate' . "\0" . 'token', '' . "\0" . 'App\\Models\\Authenticate' . "\0" . 'user', '' . "\0" . 'App\\Models\\Authenticate' . "\0" . 'authenticateService', 'createdAt', 'updatedAt'];
+        return ['__isInitialized__', '' . "\0" . 'App\\Models\\Authenticate' . "\0" . 'authenticateId', '' . "\0" . 'App\\Models\\Authenticate' . "\0" . 'userId', '' . "\0" . 'App\\Models\\Authenticate' . "\0" . 'serviceId', '' . "\0" . 'App\\Models\\Authenticate' . "\0" . 'token', '' . "\0" . 'App\\Models\\Authenticate' . "\0" . 'user', 'createdAt', 'updatedAt'];
     }
 
     /**
