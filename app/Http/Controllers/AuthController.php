@@ -180,17 +180,20 @@ class AuthController extends Controller
                     throw new \RuntimeException('This account already authenticated.');
                 }
                 $user = $this->userModifier->create($linkedAccount);
+                break;
             case AuthenticateStateType::ADD:
                 if (!is_null($authenticate)) {
                     throw new \RuntimeException('This account already authenticated.');
                 }
                 $user = $state->getUser();
                 $this->authenticateModifier->add($linkedAccount);
+                break;
             case AuthenticateStateType::LOGIN:
                 if (is_null($authenticate)) {
                     throw new \RuntimeException('This account not authenticated.');
                 }
                 $user = $this->userQuery->find($linkedAccount);
+                break;
         }
 
         $token = $this->jwt->fromUser($user);
