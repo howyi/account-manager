@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Enums\AuthenticateStateType;
 use App\Models\AuthenticateState;
-use App\Models\User\Authenticate;
-use App\Models\User\User;
+use App\Models\Authenticate;
+use App\Models\User;
 use App\Modifiers\AuthenticateServiceManager;
 use App\Modifiers\AuthenticateStateModifier;
 use App\Modifiers\UserModifier;
