@@ -21,17 +21,17 @@ class AuthenticateStateModifier
     }
 
     /**
-     * @param      $service
+     * @param      $serviceId
      * @param      $stateType
      * @param null $user
      * @return AuthenticateState
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function create($service, $stateType, $user = null): AuthenticateState
+    public function create($serviceId, $stateType, $user = null): AuthenticateState
     {
         $userId = is_null($user) ? null : $user->getUserId();
-        $authenticateState = new AuthenticateState($service, $stateType, $userId);
+        $authenticateState = new AuthenticateState($serviceId, $stateType, $userId);
         $this->em->persist($authenticateState);
         $this->em->flush();
         return $authenticateState;

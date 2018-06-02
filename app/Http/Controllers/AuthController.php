@@ -69,18 +69,18 @@ class AuthController extends Controller
 
     /**
      * @param Request $request
-     * @param string  $service
+     * @param string  $serviceId
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function new(Request $request, string $service)
+    public function new(Request $request, string $serviceId)
     {
         $driver = $this
             ->authenticateServiceManager
-            ->getDriver($request, $service)
+            ->getDriver($request, $serviceId)
             ->stateless();
 
         $state = $this->authenticateStateModifier->create(
-            $service,
+            $serviceId,
             AuthenticateStateType::NEW
         );
 
@@ -91,14 +91,14 @@ class AuthController extends Controller
 
     /**
      * @param Request $request
-     * @param string  $service
+     * @param string  $serviceId
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function add(Request $request, string $service)
+    public function add(Request $request, string $serviceId)
     {
         $driver = $this
             ->authenticateServiceManager
-            ->getDriver($request, $service)
+            ->getDriver($request, $serviceId)
             ->stateless();
 
         if (is_null(auth()->getUser())) {
@@ -106,7 +106,7 @@ class AuthController extends Controller
         }
 
         $state = $this->authenticateStateModifier->create(
-            $service,
+            $serviceId,
             AuthenticateStateType::ADD,
             auth()->getUser()
         );
@@ -118,18 +118,18 @@ class AuthController extends Controller
 
     /**
      * @param Request $request
-     * @param string  $service
+     * @param string  $serviceId
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function login(Request $request, string $service)
+    public function login(Request $request, string $serviceId)
     {
         $driver = $this
             ->authenticateServiceManager
-            ->getDriver($request, $service)
+            ->getDriver($request, $serviceId)
             ->stateless();
 
         $state = $this->authenticateStateModifier->create(
-            $service,
+            $serviceId,
             AuthenticateStateType::LOGIN
         );
 
@@ -232,23 +232,23 @@ class AuthController extends Controller
 
     /**
      * @param LinkedAccount $linkedAccount
-     * @param string        $service
+     * @param string        $serviceId
      * @return User
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    private function findOrCreateUser(LinkedAccount $linkedAccount, string $service): User
+    private function findOrCreateUser(LinkedAccount $linkedAccount, string $serviceId): User
     {
         $authenticate = $this
             ->em
             ->getRepository(Authenticate::class)
             ->findOneBy([
-                'serviceName' => $service,
+                'serviceName' => $serviceId,
                 'serviceId'   => $linkedAccount->getId(),
             ]);
 
         if (is_null($authenticate)) {
-            return $this->userModifier->create($linkedAccount, $service);
+            return $this->userModifier->create($linkedAccount, $serviceId);
         } else {
             return $authenticate->getUser();
         }
