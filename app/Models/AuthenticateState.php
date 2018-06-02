@@ -22,8 +22,8 @@ class AuthenticateState
     /**
      * @var string
      *
-     * @ORM\Id
      * @ORM\Column
+     * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
      */
     private $stateId;
@@ -51,15 +51,9 @@ class AuthenticateState
 
     /**
      * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="user_id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="user_id", nullable=true)
      */
     private $user;
-
-    /**
-     * @ORM\OneToOne(targetEntity="AuthenticateService")
-     * @ORM\JoinColumn(name="service_id", referencedColumnName="service_id")
-     */
-    private $service;
 
     /**
      * AuthenticateState constructor.
@@ -82,7 +76,7 @@ class AuthenticateState
         return $this->stateId;
     }
 
-    public function getServiceId(): int
+    public function getServiceId(): string
     {
         return $this->serviceId;
     }

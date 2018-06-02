@@ -64,10 +64,10 @@ class AuthenticateState extends \App\Models\AuthenticateState implements \Doctri
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'stateId', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'serviceId', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'stateType', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'userId', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'user', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'service', 'createdAt', 'updatedAt', 'deletedAt'];
+            return ['__isInitialized__', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'stateId', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'serviceId', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'stateType', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'userId', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'user', 'createdAt', 'updatedAt', 'deletedAt'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'stateId', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'serviceId', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'stateType', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'userId', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'user', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'service', 'createdAt', 'updatedAt', 'deletedAt'];
+        return ['__isInitialized__', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'stateId', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'serviceId', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'stateType', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'userId', '' . "\0" . 'App\\Models\\AuthenticateState' . "\0" . 'user', 'createdAt', 'updatedAt', 'deletedAt'];
     }
 
     /**
@@ -191,7 +191,7 @@ class AuthenticateState extends \App\Models\AuthenticateState implements \Doctri
     /**
      * {@inheritDoc}
      */
-    public function getServiceId(): int
+    public function getServiceId(): string
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getServiceId', []);

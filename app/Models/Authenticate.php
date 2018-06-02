@@ -69,7 +69,7 @@ class Authenticate
     ) {
         $this->user = $user;
         $this->userId = $user->getUserId();
-        $this->token = $serviceId;
+        $this->serviceId = $serviceId;
         $this->token = $token;
     }
 }
