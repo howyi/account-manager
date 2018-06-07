@@ -162,6 +162,8 @@ class AuthController extends Controller
             throw new \RuntimeException('State expired.');
         }
 
+        // TODO delete $state
+
         $linkedAccount = $this
             ->authenticateServiceManager
             ->getDriver($request, $serviceId)
@@ -194,7 +196,7 @@ class AuthController extends Controller
                 if (is_null($authenticate)) {
                     throw new \RuntimeException('This account not authenticated.');
                 }
-                $user = $this->userQuery->find($linkedAccount);
+                $user = $authenticate->getUser();
                 break;
         }
 

@@ -66,4 +66,9 @@ class Authenticate
         $this->serviceId = $serviceId;
         $this->token = $token;
     }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
 }
