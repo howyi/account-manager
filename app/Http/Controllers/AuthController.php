@@ -70,7 +70,9 @@ class AuthController extends Controller
     /**
      * @param Request $request
      * @param string  $serviceId
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function new(Request $request, string $serviceId)
     {
@@ -92,7 +94,9 @@ class AuthController extends Controller
     /**
      * @param Request $request
      * @param string  $serviceId
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function add(Request $request, string $serviceId)
     {
@@ -119,7 +123,9 @@ class AuthController extends Controller
     /**
      * @param Request $request
      * @param string  $serviceId
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function login(Request $request, string $serviceId)
     {
@@ -162,7 +168,8 @@ class AuthController extends Controller
             throw new \RuntimeException('State expired.');
         }
 
-        // TODO delete $state
+        $this->em->remove($state);
+        $this->em->flush();
 
         $linkedAccount = $this
             ->authenticateServiceManager

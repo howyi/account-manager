@@ -63,6 +63,31 @@ class AuthenticateService
     private $redirectUrl;
 
     /**
+     * AuthenticateService constructor.
+     * @param string $serviceId
+     * @param string $serviceName
+     * @param string $serviceType
+     * @param string $clientId
+     * @param string $clientSecret
+     * @param string $redirectUrl
+     */
+    public function __construct(
+        string $serviceId,
+        string $serviceName,
+        string $serviceType,
+        string $clientId,
+        string $clientSecret,
+        string $redirectUrl
+    ) {
+        $this->serviceId = $serviceId;
+        $this->serviceName = $serviceName;
+        $this->serviceType = $serviceType;
+        $this->clientId = $clientId;
+        $this->clientSecret = $clientSecret;
+        $this->redirectUrl = $redirectUrl;
+    }
+
+    /**
      * @return string
      */
     public function getServiceType()

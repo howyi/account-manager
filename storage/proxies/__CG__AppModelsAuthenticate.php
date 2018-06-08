@@ -176,6 +176,17 @@ class Authenticate extends \App\Models\Authenticate implements \Doctrine\ORM\Pro
     /**
      * {@inheritDoc}
      */
+    public function getUser(): ?\App\Models\User
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUser', []);
+
+        return parent::getUser();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getCreatedAt()
     {
 

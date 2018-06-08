@@ -138,8 +138,6 @@ class User implements AuthenticatableContract, JWTSubject, \JsonSerializable
         return [
             'user_id' => $this->getUserId(),
             'name' => $this->getName(),
-            'email' => $this->email,
-            'authenticates'=> $this->authenticates->toArray()
         ];
     }
 }
