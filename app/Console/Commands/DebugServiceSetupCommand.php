@@ -59,20 +59,5 @@ class DebugServiceSetupCommand extends Command
             ->setParameter(5, env('DEBUG_SERVICE_REDIRECT_URL'));
 
         dump($qb->getResult());
-
-
-        // $queryBuilder
-        //     ->insert('users')
-        //     ->values(
-        //         array(
-        //             'name' => '?',
-        //             'password'> '?'
-        //         )
-        //     )
-        //     ->setParameter(0, $username)
-        //     ->setParameter(1, $password)
-
-        // $em->persist($entity);
-        // $em->flush();
     }
 }
