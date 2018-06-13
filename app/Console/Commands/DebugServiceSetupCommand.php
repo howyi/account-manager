@@ -33,31 +33,20 @@ class DebugServiceSetupCommand extends Command
         parent::__construct();
     }
 
-    /**
-     * @throws \Doctrine\ORM\ORMException
-     */
     public function handle()
     {
-        $repository = app(EntityManager::class)->getRepository(AuthenticateService::class);
-        $qb = $repository
-            ->createQueryBuilder('s')
-            ->values(
-               [
-                    'service_id' => '?',
-                    'service_name' => '?',
-                    'service_type' => '?',
-                    'client_id' => '?',
-                    'client_secret' => '?',
-                    'redirect_url' => '?',
-                ]
-            )
-            ->setParameter(0, env('DEBUG_SERVICE_ID'))
-            ->setParameter(1, env('DEBUG_SERVICE_NAME'))
-            ->setParameter(2, env('DEBUG_SERVICE_TYPE'))
-            ->setParameter(3, env('DEBUG_SERVICE_CLIENT_ID'))
-            ->setParameter(4, env('DEBUG_SERVICE_CLIENT_SECRET'))
-            ->setParameter(5, env('DEBUG_SERVICE_REDIRECT_URL'));
-
-        dump($qb->getResult());
+        $pdo = app(EntityManager::class)->getConnection()->getWrappedConnection();
+        $stmt = $pdo->prepare(
+            'INSERT INTO authenticate_services (service_id, service_name, service_type, client_id, client_secret, redirect_url, created_at, updated_at) 
+            VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW());'
+        );
+        $stmt->execute([
+            env('DEBUG_SERVICE_ID'),
+            env('DEBUG_SERVICE_NAME'),
+            env('DEBUG_SERVICE_TYPE'),
+            env('DEBUG_SERVICE_CLIENT_ID'),
+            env('DEBUG_SERVICE_CLIENT_SECRET'),
+            env('DEBUG_SERVICE_REDIRECT_URL'),
+        ]);
     }
 }
